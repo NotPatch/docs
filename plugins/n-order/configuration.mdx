@@ -1,0 +1,137 @@
+---
+title: 'Configuration'
+---
+
+# Main Files
+
+- `config.yml` – Core settings, database, economy, webhook options
+- `menu.yml` – GUI menu layouts and button behavior
+- `customitems.yml` – Custom item whitelist options
+- `lang/en.yml`, `lang/tr.yml` – Language files
+
+# Menu Configuration
+
+Menus are managed via `menu.yml` and support:
+
+- Custom titles and sizes
+- Click actions
+- Placeholders
+- Item metadata (name, lore, enchantments)
+
+---
+
+#### database
+Controls the database connection.
+
+- `type` — Database type: `sqlite` or `mysql` (or `postgres` if supported).
+- `host` — Database host (MySQL/Postgres).
+- `port` — Database port (default MySQL 3306).
+- `database` — Database name.
+- `username` / `password` — Credentials for DB connection.
+- `pool-size` — Maximum connection pool size.
+- `minimum-idle` — Minimum idle connections to keep.
+- `keepalive-time` — Keep-alive time in milliseconds.
+- `maximum-lifetime` — Maximum lifetime of pooled connections in milliseconds.
+- `connection-timeout` — Connection attempt timeout in milliseconds.
+
+Notes:
+- For `sqlite` most host/port fields are ignored.
+- Adjust pool and timeout values according to server load.
+
+---
+
+### lang
+- `lang` — Locale code used for messages (e.g. `en_US`, `tr_TR`).
+
+---
+
+### permissions
+Permission nodes used by commands/features.
+
+- `order` — Base permission to use ordering features (e.g. `norder.use`).
+- `order-menu` — Permission to open order menu (e.g. `norder.menu`).
+- `order-admin` — Admin permission for management commands (e.g. `norder.admin`).
+- `order-limit` — Permission prefix for per-player order limits. Use `norder.limit.<number>`.
+- `order-expiration` — Permission prefix for custom expiration durations. Use `norder.expiration.<days>`.
+- `use-highlight` — Permission to use item highlight feature (e.g. `norder.highlight`).
+
+---
+
+### date-format
+- `date-format` — Date/time format string used across plugin (example: `dd-MM HH:mm:ss`).
+- Dates are formatted using the plugin's configured format.
+
+---
+
+### commands
+Command aliases configuration.
+
+- `commands.order.aliases` — List of aliases for the order command (e.g. `norder`, `sipariş`).
+- `commands.order-admin.aliases` — Aliases for admin command (e.g. `norderadmin`, `siparişadmin`).
+
+---
+
+### settings
+General plugin settings.
+
+- `highlight-fee` — Fee charged to highlight an order (numeric, currency).
+- `send-webhooks` — Boolean; whether to send configured webhooks on events.
+- `min-price-per-item` — Minimum allowed price per item.
+- `max-price-per-item` — Maximum allowed price per item.
+
+Broadcast sub-section:
+- `settings.broadcast.enabled` — If `true`, new orders may be broadcast to the server.
+- `settings.broadcast.min-total-price` — Minimum total order value (`price * amount`) required to trigger broadcast.
+
+---
+
+### number-format
+Formatting for compact number display.
+
+- `suffixes` — Ordered list of suffixes appended as numbers scale (e.g. `""`, `K`, `M`, `B`, `T`).
+- `decimal-places` — Number of decimals to keep when formatting (e.g. `1` formats `1500` as `1.5K`).
+
+Examples:
+- `decimal-places: 1` -> `1500` => `1.5K`
+- `decimal-places: 2` -> `1500` => `1.50K`
+
+---
+
+### progress-bar
+Visual progress bar configuration used in messages/menus.
+
+- `progress-bar.length` — Width/characters of the bar (integer).
+- `progress-bar.complete-symbol` — Character used for completed portion (e.g. `█`).
+- `progress-bar.incomplete-symbol` — Character used for incomplete portion (e.g. `░`).
+- `progress-bar.complete-color` — Color code prefix for completed segment (Minecraft-style, e.g. `&a`).
+- `progress-bar.incomplete-color` — Color code prefix for incomplete segment (e.g. `&7`).
+
+Notes:
+- Color codes use the plugin/text color format (usually `&` followed by a code).
+
+---
+
+### blacklist-items
+- `blacklist-items` — List of material/item names that are not allowed for orders (use official material enum names, e.g. `BEDROCK`, `COMMAND_BLOCK`).
+
+---
+
+### per-item-price
+Per-item price overrides. If an item is listed here, the specified `min-price-per-item` and `max-price-per-item` apply to that item instead of the global limits.
+
+Example structure:
+- `per-item-price.DIAMOND.min-price-per-item` — Minimum for DIAMOND.
+- `per-item-price.DIAMOND.max-price-per-item` — Maximum for DIAMOND.
+
+Notes:
+- If an item is not listed, global `settings.min-price-per-item` and `settings.max-price-per-item` apply.
+
+---
+
+### Edge cases & behaviour
+- Numeric fields accept decimal numbers (currency).
+- Boolean flags control feature toggles (e.g. `send-webhooks`, `broadcast.enabled`).
+- Permission prefixes (`order-limit`, `order-expiration`) are appended with `.<value>` to create specific permissions.
+- Date and number formatting follow the configured `date-format` and `number-format` settings respectively.
+
+---

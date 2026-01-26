@@ -1,13 +1,13 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mint Starter Kit",
+  "theme": "aspen",
+  "name": "MineBazaar",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#F5C84C",
+    "light": "#F7F8FA",
+    "dark": "#0F1115"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/logo/aaa.png",
   "navigation": {
     "tabs": [
       {
@@ -24,7 +24,11 @@
             "group": "NOrder",
             "pages": [
               "plugins/n-order",
-              "plugins/n-order/test"
+              "plugins/n-order/placeholders",
+              "plugins/n-order/requirements",
+              "plugins/n-order/features",
+              "plugins/n-order/configuration",
+              "plugins/n-order/permissions"
             ]
           }
         ]
@@ -32,20 +36,14 @@
     ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/aaa.png",
+    "dark": "/logo/aaa.png"
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Discord",
+      "href": "https://discord.minebazaar.net"
     }
   },
   "contextual": {
@@ -62,9 +60,8 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "github": "https://github.com/notpatch",
+      "discord": "https://discord.minebazaar.net"
     }
   }
 }

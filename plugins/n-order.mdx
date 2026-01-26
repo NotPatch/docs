@@ -1,38 +1,11 @@
 ---
-title: "NOrder"
+title: "Overview"
 description: "A modular in-game order system"
 ---
-
-# Overview
 
 **NOrder** is a modular in-game order system for Minecraft servers that allows players to create, manage, and fulfill item orders through user-friendly GUI menus. It is designed to provide a complete solution for order creation, delivery, payment handling, and statistics tracking.
 
 NOrder is lightweight, production-ready, and suitable for economy-focused servers such as Survival, SkyBlock, and RPG environments.
-
-# Features
-
-- Modular and scalable order system
-- Fully GUI-based menus (configurable via YAML)
-- Player order creation and management
-- Admin order control and moderation tools
-- Asynchronous database operations
-- Statistics tracking (orders, deliveries, revenue)
-- Webhook support for Discord notifications
-- PlaceholderAPI integration
-- Vault economy support
-- Custom item support (ItemsAdder & Nexo)
-- Multi-language support (TR / EN)
-
-# Requirements
-
-- **Server Software:** Paper (1.21.4+)
-- **Java Version:** Java 17+
-- **Dependencies:**
-  - Vault (required)
-  - PlaceholderAPI (optional, recommended)
-- **Optional Integrations:**
-  - ItemsAdder
-  - Nexo
 
 # Installation
 
@@ -41,52 +14,3 @@ NOrder is lightweight, production-ready, and suitable for economy-focused server
 - Restart the server (do not reload).
 - Ensure Vault and an economy provider are installed.
 - Configure the plugin files located in `plugins/NOrder/`.
-
-# Configuration
-
-### Main Files
-
-- `config.yml` – Core settings, database, economy, webhook options
-- `menu.yml` – GUI menu layouts and button behavior
-- `customitems.yml` – Custom item whitelist options
-- `lang/en.yml`, `lang/tr.yml` – Language files
-
-### Menu Configuration
-
-Menus are managed via `menu.yml` and support:
-
-- Custom titles and sizes
-- Click actions
-- Placeholders
-- Item metadata (name, lore, enchantments)
-
-# Placeholders
-
-Requires **PlaceholderAPI**
-
-| Placholder                                           | Description                                                                   |
-| ---------------------------------------------------- | ----------------------------------------------------------------------------- |
-| %norder_orders_total%                                | Returns the **total number of orders** created on the server.                 |
-| %norder_order\_\<id\>\_material%                     | Returns the **material/item type** of the specified order.                    |
-| %norder_order\_\<id\>\_amount%                       | Returns the **required item amount** for the order.                           |
-| %norder_order\_\<id\>\_price%                        | Returns the **price/reward** of the order.                                    |
-| %norder_order\_\<id\>\_buyer%                        | Returns the **player name** who created the order.                            |
-| %norder_order\_\<id\>\_status%                       | Returns the **current status** of the order (e.g. ACTIVE, COMPLETED, EXPIRED) |
-| %norder_order\_\<id\>\_createDate%                   | Returns the **creation date** of the order.                                   |
-| %norder_order\_\<id\>\_expirationDate%               | Returns the **expiration date** of the order.                                 |
-| %norder_player_totalOrders%                          | Total number of orders created by the player.                                 |
-| %norder_player_totalEarnings%                        | Total amount of money earned by the player from completed orders.             |
-| %norder_player_totalDelivered%                       | Total number of items delivered by the player.                                |
-| %norder_player_totalCollected%                       | Total number of items collected by the player.                                |
-| %norder_player_currentOrder%                         | Returns the number of **current orders** associated with the player.          |
-| %norder_player_activeOrder%                          | Returns the number of **active orders** the player is currently working on.   |
-| %norder_player_availableleftOrder%                   | Returns how many **orders the player can still create** based on limits.      |
-| %norder_player_limitOrder%                           | Returns the **maximum order limit** assigned to the player.                   |
-| %norder_player\_\<player_name\>\_totalOrders%        | Returns the total number of orders created by the specified player.           |
-| %norder_player\_\<player_name\>\_totalEarnings%      | Returns the total earnings of the specified player.                           |
-| %norder_player\_\<player_name\>\_totalDelivered%     | Returns the total number of items delivered by the specified player.          |
-| %norder_player\_\<player_name\>\_totalCollected%     | Returns the total number of items collected by the specified player.          |
-| %norder_player\_\<player_name\>\_currentOrder%       | Returns the number of current orders for the specified player.                |
-| %norder_player\_\<player_name\>\_activeOrder%        | Returns the number of active orders for the specified player.                 |
-| %norder_player\_\<player_name\>\_availableleftOrder% | Returns how many orders the specified player can still create.                |
-| %norder_player\_\<player_name\>\_limitOrder%         | Returns the maximum order limit for the specified player.                     |
