@@ -28,7 +28,8 @@
               "plugins/n-order/requirements",
               "plugins/n-order/features",
               "plugins/n-order/configuration",
-              "plugins/n-order/permissions"
+              "plugins/n-order/permissions",
+              "plugins/n-order/faq"
             ]
           }
         ]
