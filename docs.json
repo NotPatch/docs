@@ -21,6 +21,12 @@
         "tab": "Plugins",
         "groups": [
           {
+            "group": "NHideAndSeek",
+            "pages": [
+              "plugins/n-hide-and-seek/overview"
+            ]
+          },
+          {
             "group": "NOrder",
             "pages": [
               "plugins/n-order",
