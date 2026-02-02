@@ -1,0 +1,612 @@
+---
+title: "Particle Effects"
+description: "Comprehensive guide to particle effects system"
+---
+
+NHideAndSeek features a powerful particle effects system that allows players to purchase and use cosmetic effects during gameplay. Effects are triggered on specific game events and can be fully customized.
+
+
+## Effect Events
+
+Effects are triggered on three main game events:
+
+<CardGroup cols={3}>
+  <Card title="WIN" icon="trophy" color="#22c55e">
+    Plays when you win the game
+  </Card>
+  <Card title="KILL" icon="skull" color="#ef4444">
+    Plays when you eliminate another player
+  </Card>
+  <Card title="DIE" icon="heart-crack" color="#6b7280">
+    Plays when you get eliminated
+  </Card>
+</CardGroup>
+
+---
+
+## Effect Types
+
+NHideAndSeek supports 8 different effect types, each with unique visual patterns.
+
+### Circle
+
+A circular ring of particles around the player.
+
+**Configuration:**
+```yaml
+type: "circle"
+particle: "FLAME"
+radius: 2.0           # Circle radius
+points: 40            # Number of particles
+height-offset: 0.5    # Height above player
+duration: 60          # Duration in ticks
+```
+
+**Special Features:**
+- Supports custom RGB colors with `DUST` particle
+
+**Example:**
+```yaml
+rainbow-win:
+  type: "circle"
+  particle: "DUST"
+  radius: 2.0
+  points: 60
+  duration: 50
+```
+
+---
+
+### Spiral
+
+An upward rotating spiral of particles.
+
+**Configuration:**
+```yaml
+type: "spiral"
+particle: "END_ROD"
+radius: 1.0           # Spiral radius
+height: 3.0           # Spiral height
+rotations: 3          # Number of rotations
+points: 40            # Particle density
+duration: 40
+```
+
+**Special Features:**
+- Supports custom RGB colors
+- Customizable rotation count
+- Smooth upward animation
+
+**Example:**
+```yaml
+soul-ascend:
+  type: "spiral"
+  particle: "SOUL"
+  radius: 0.8
+  height: 2.5
+  rotations: 3
+  duration: 40
+```
+
+---
+
+### Sphere
+
+A spherical explosion of particles.
+
+**Configuration:**
+```yaml
+type: "sphere"
+particle: "DUST"
+radius: 1.2           # Sphere radius
+points: 40            # Particle density
+duration: 20
+color:                # RGB color (DUST particle only)
+  r: 200
+  g: 0
+  b: 0
+```
+
+**Special Features:**
+- Perfect for explosion effects
+- Supports custom RGB colors
+- Even particle distribution
+
+**Example:**
+```yaml
+blood-splash:
+  type: "sphere"
+  particle: "DUST"
+  radius: 1.2
+  points: 40
+  color:
+    r: 200
+    g: 0
+    b: 0
+```
+
+---
+
+### Heart
+
+A heart-shaped particle pattern.
+
+**Configuration:**
+```yaml
+type: "heart"
+particle: "HEART"
+size: 1.5             # Heart size
+height-offset: 2.0    # Height above player
+points: 20            # Particle density
+duration: 40
+```
+
+**Special Features:**
+- Romantic heart shape
+- Perfect for celebration effects
+- Customizable size
+
+---
+
+### Star
+
+A five-pointed star particle pattern.
+
+**Configuration:**
+```yaml
+type: "star"
+particle: "END_ROD"
+size: 2.0             # Star size
+height-offset: 2.0    # Height above player
+points: 50            # Particle density
+duration: 40
+```
+
+**Special Features:**
+- Perfect 5-pointed star
+- Great for victory celebrations
+- Customizable scale
+
+---
+
+### Helix
+
+A double spiral (DNA-like) particle effect.
+
+**Configuration:**
+```yaml
+type: "helix"
+particle: "END_ROD"
+radius: 1.2           # Helix radius
+height: 2.0           # Helix height
+rotations: 2          # Number of rotations
+points: 50            # Particle density
+duration: 35
+```
+
+**Special Features:**
+- Double spiral pattern
+- Supports custom RGB colors
+- Smooth animation
+
+**Example:**
+```yaml
+angel-wings:
+  type: "helix"
+  particle: "END_ROD"
+  radius: 1.2
+  height: 2.0
+  rotations: 2
+  color:
+    r: 255
+    g: 255
+    b: 200
+```
+
+---
+
+### Cloud
+
+Random particles in a spherical cloud area.
+
+**Configuration:**
+```yaml
+type: "cloud"
+particle: "SMOKE_LARGE"
+radius: 1.5           # Cloud radius
+density: 25           # Particle count per tick
+height-offset: 1.0    # Height above player
+duration: 35
+```
+
+**Special Features:**
+- Random particle positions
+- Natural cloud appearance
+- Customizable density
+
+---
+
+### Random
+
+Particles scattered randomly around the player.
+
+**Configuration:**
+```yaml
+type: "random"
+particle: "FIREWORK"
+radius: 1.5           # Scatter radius
+density: 30           # Particles per tick
+duration: 40
+```
+
+**Special Features:**
+- Completely random positioning
+- Good for chaotic effects
+- High customization
+
+---
+
+## Available Particles
+
+NHideAndSeek supports all Minecraft particle types. Here are the most commonly used:
+
+<AccordionGroup>
+  <Accordion title="Fire & Explosion">
+    - `FLAME` - Fire particles
+    - `SOUL_FIRE_FLAME` - Blue soul fire
+    - `LAVA` - Lava drips
+    - `EXPLOSION_NORMAL` - Small explosion
+    - `EXPLOSION_LARGE` - Large explosion
+    - `FIREWORK` - Firework sparkles
+  </Accordion>
+
+  <Accordion title="Magic & Enchanting">
+    - `ENCHANTMENT_TABLE` - Enchanting symbols
+    - `CRIT` - Critical hit stars
+    - `CRIT_MAGIC` - Magical critical hits
+    - `SPELL` - Spell particles
+    - `END_ROD` - White glowing particles
+  </Accordion>
+
+  <Accordion title="Nature & Weather">
+    - `HEART` - Red hearts
+    - `VILLAGER_HAPPY` - Green sparkles
+    - `CLOUD` - White cloud particles
+    - `SMOKE_NORMAL` - Small smoke
+    - `SMOKE_LARGE` - Large smoke
+    - `DRIP_WATER` - Water drips
+  </Accordion>
+
+  <Accordion title="Special Effects">
+    - `DUST` - Colored particles (supports RGB)
+    - `REDSTONE` - Alias for DUST
+    - `PORTAL` - Purple portal particles
+    - `SOUL` - Soul particles
+    - `NOTE` - Musical notes
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Color Support
+
+Some particles support custom RGB colors:
+
+### DUST Particle
+
+The `DUST` (formerly `REDSTONE`) particle supports full RGB color customization:
+
+```yaml
+effect-name:
+  type: "circle"
+  particle: "DUST"
+  color:
+    r: 255      # Red (0-255)
+    g: 100      # Green (0-255)
+    b: 50       # Blue (0-255)
+```
+
+---
+
+## Effect Configuration
+
+### Basic Structure
+
+```yaml
+available-effects:
+  effect-id:
+    display-name: "&6Effect Name"
+    display-item: "MATERIAL_NAME"
+    custom-model-data: 0       # Optional
+    lore:
+      - "&7Description line 1"
+      - "&7Description line 2"
+      - ""
+      - "&e&lCost: &f%cost% coins"
+    event: "WIN"               # WIN, KILL, or DIE
+    cost: 1000                 # Price in coins
+    permission: "has.effect.id" # Optional permission
+
+    # Effect properties
+    type: "circle"
+    particle: "FLAME"
+    # ... type-specific properties
+```
+
+### Common Properties
+
+| Property | Description | Default |
+|----------|-------------|---------|
+| `type` | Effect shape (circle, spiral, etc.) | `circle` |
+| `particle` | Minecraft particle type | `FLAME` |
+| `duration` | Effect duration in ticks (20 ticks = 1 second) | `20` |
+| `points` | Number of particles or density | `30` |
+| `height-offset` | Vertical offset from player position | `0.0` |
+
+---
+
+## Default Effects
+
+NHideAndSeek includes free default effects for all events:
+
+```yaml
+default-effects:
+  default-win:
+    event: "WIN"
+    type: "circle"
+    particle: "VILLAGER_HAPPY"
+    # Always free and available
+
+  default-kill:
+    event: "KILL"
+    type: "circle"
+    particle: "CRIT"
+
+  default-die:
+    event: "DIE"
+    type: "cloud"
+    particle: "SMOKE_NORMAL"
+```
+
+Players automatically start with these effects and can switch to purchased effects anytime.
+
+---
+
+## Effect Shop
+
+Players can purchase effects using coins earned from gameplay.
+
+### Opening the Shop
+
+```
+/has effects
+/has shop
+```
+
+### Shop Features
+
+<CardGroup cols={2}>
+  <Card title="Browse Effects" icon="store">
+    View all available effects categorized by event type
+  </Card>
+  <Card title="Preview System" icon="eye">
+    See effect descriptions and costs before purchase
+  </Card>
+  <Card title="Purchase Effects" icon="coins">
+    Buy effects using earned coins
+  </Card>
+  <Card title="Manage Owned" icon="circle-check">
+    Select which effects to use for each event
+  </Card>
+</CardGroup>
+
+### Cost System
+
+Effect costs are configurable per effect:
+- **Free**: Default effects (always available)
+- **500-1000**: Basic effects
+- **1000-1500**: Premium effects
+
+---
+
+## Creating Custom Effects
+
+### Step 1: Define the Effect
+
+Add your effect to `effects.yml`:
+
+```yaml
+available-effects:
+  my-custom-effect:
+    display-name: "&b&lᴍy ᴄᴜꜱᴛᴏᴍ ᴇꜰꜰᴇᴄᴛ"
+    display-item: "DIAMOND"
+    lore:
+      - "&7An amazing custom effect"
+      - "&7that does something cool"
+      - ""
+      - "&e&lCost: &f%cost% coins"
+    event: "WIN"
+    cost: 2000
+    permission: "has.effect.custom"
+
+    type: "helix"
+    particle: "DUST"
+    radius: 1.5
+    height: 3.0
+    rotations: 3
+    points: 60
+    duration: 50
+    color:
+      r: 0
+      g: 200
+      b: 255
+```
+
+### Step 2: Reload the Plugin
+
+```
+/has reload
+```
+
+Your custom effect will now appear in the shop!
+
+---
+
+## Permission System
+
+Effects can be restricted with permissions:
+
+```yaml
+effect-name:
+  permission: "has.effect.effectname"
+```
+
+### Permission Behavior
+
+- **No Permission Set**: Available to all players (must purchase)
+- **With Permission**: Only players with permission can see and purchase
+- **VIP Effects**: Grant permissions to VIP ranks for exclusive effects
+
+### Example Permissions
+
+```yaml
+# Server permissions config
+groups:
+  vip:
+    permissions:
+      - has.effect.rainbow
+      - has.effect.lightning
+  admin:
+    permissions:
+      - has.effect.*
+```
+
+---
+
+## Best Practices
+
+<Warning>
+  **Performance**: Avoid using too many particles or high density values, as this can cause client lag.
+</Warning>
+
+### Recommended Values
+
+- **Duration**: 20-60 ticks (1-3 seconds)
+- **Points**: 20-60 particles
+- **Radius**: 0.5-2.5 blocks
+- **Density**: 15-30 particles per tick
+
+### Tips
+
+<Tip>
+  **Testing**: Use `/has reload` to test effect changes without restarting the server.
+</Tip>
+
+- Test effects in-game before releasing to players
+- Use appropriate particles for effect themes (fire for kills, hearts for wins)
+- Balance effect costs with gameplay coin earnings
+- Consider color schemes that match your server theme
+
+---
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Effect not showing in shop">
+    - Check YAML syntax in `effects.yml`
+    - Ensure the effect has `display-name` and `display-item`
+    - Verify the player has required permissions (if set)
+    - Run `/has reload` after making changes
+  </Accordion>
+
+  <Accordion title="Particles not appearing">
+    - Verify particle name is correct (see Available Particles)
+    - Check if `REDSTONE` should be `DUST`
+    - Ensure duration > 0
+    - Check player render distance settings
+  </Accordion>
+
+  <Accordion title="Colors not working">
+    - RGB colors only work with `DUST` particle
+    - Color values must be between 0-255
+    - Check YAML indentation for `color:` section
+  </Accordion>
+
+  <Accordion title="Effect too laggy">
+    - Reduce `points` or `density` values
+    - Lower `duration` for shorter effects
+    - Avoid multiple effects triggering simultaneously
+    - Test on lower-end clients
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Examples
+
+### Victory Fireworks
+
+```yaml
+victory-fireworks:
+  display-name: "&6&lꜰɪʀᴇᴡᴏʀᴋꜱ"
+  display-item: "FIREWORK_ROCKET"
+  event: "WIN"
+  cost: 1000
+  type: "sphere"
+  particle: "FIREWORK"
+  radius: 2.0
+  points: 50
+  duration: 60
+```
+
+### Blood Effect
+
+```yaml
+blood-splash:
+  display-name: "&4&lʙʟᴏᴏᴅ ꜱᴘʟᴀꜱʜ"
+  display-item: "REDSTONE"
+  event: "KILL"
+  cost: 600
+  type: "sphere"
+  particle: "DUST"
+  radius: 1.2
+  points: 40
+  duration: 20
+  color:
+    r: 200
+    g: 0
+    b: 0
+```
+
+### Angel Ascension
+
+```yaml
+angel-wings:
+  display-name: "&e&lᴀɴɢᴇʟ ᴡɪɴɢꜱ"
+  display-item: "FEATHER"
+  event: "DIE"
+  cost: 1000
+  type: "helix"
+  particle: "END_ROD"
+  radius: 1.2
+  height: 2.0
+  rotations: 2
+  points: 50
+  duration: 35
+```
+
+### Rainbow Circle
+
+```yaml
+rainbow-circle:
+  display-name: "&d&lʀᴀɪɴʙᴏᴡ"
+  display-item: "PRISMARINE_SHARD"
+  event: "WIN"
+  cost: 1500
+  type: "circle"
+  particle: "DUST"
+  radius: 2.0
+  points: 60
+  rainbow: true
+  duration: 50
+```

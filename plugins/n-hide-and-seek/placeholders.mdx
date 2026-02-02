@@ -1,17 +1,156 @@
 ---
 title: "Placeholders"
-description: "Requires PlaceholderAPI "
+description: "Requires PlaceholderAPI"
 ---
 
-### **Player Statistics**
+## Player Statistics
 
-#### Basic Statistics
+### Basic Statistics
 
-| Placeholder  | Description                  |
-| ------------ | ---------------------------- |
-| %has_coins%  | Total coins earned by player |
-| %has_games%  | Total games player           |
-| %has_wins%   | Number of games won          |
-| %has_losses% | Number of games lost         |
+| Placeholder          | Description                  |
+| -------------------- | ---------------------------- |
+| %has_coins%          | Total coins earned by player |
+| %has_games%          | Total games played           |
+| %has_games_played%   | (alias: %has_games%)         |
+| %has_wins%           | Number of games won          |
+| %has_games_won%      | (alias: %has_wins%)          |
+| %has_losses%         | Number of games lost         |
+| %has_games_lost%     | (alias: %has_losses%)        |
 
-#### Role-Based Statistics
+### Role-Based Statistics
+
+| Placeholder                 | Description              |
+| --------------------------- | ------------------------ |
+| %has_wins_hider%            | Games won as Hider       |
+| %has_games_won_as_hider%    | (alias: %has_wins_hider%) |
+| %has_wins_seeker%           | Games won as Seeker      |
+| %has_games_won_as_seeker%   | (alias: %has_wins_seeker%) |
+
+### Kill/Death Statistics
+
+| Placeholder         | Description                      |
+| ------------------- | -------------------------------- |
+| %has_kills%         | Total number of kills            |
+| %has_total_kills%   | (alias: %has_kills%)             |
+| %has_deaths%        | Total number of deaths           |
+| %has_total_deaths%  | (alias: %has_deaths%)            |
+| %has_kd%            | Kill/Death ratio (e.g: 2.50)     |
+| %has_kdr%           | (alias: %has_kd%)                |
+| %has_kd_ratio%      | (alias: %has_kd%)                |
+
+### Time Statistics
+
+| Placeholder            | Description                                  |
+| ---------------------- | -------------------------------------------- |
+| %has_time_played%      | Time spent in game (formatted: "5h 30m")    |
+| %has_time_played_raw%  | Game time in seconds (e.g: 19820)            |
+
+### Percentage-Based Statistics
+
+| Placeholder       | Description                    |
+| ----------------- | ------------------------------ |
+| %has_winrate%     | Win percentage (e.g: 65.5%)    |
+| %has_win_rate%    | (alias: %has_winrate%)         |
+
+## Current Game Information
+
+<Note>These placeholders return empty ("") if the player is not in a game.</Note>
+
+### Arena Information
+
+| Placeholder            | Description                                  |
+| ---------------------- | -------------------------------------------- |
+| %has_game_arena%       | Name of the arena being played (e.g: "parkour") |
+| %has_game_players%     | Current number of players (e.g: "8")         |
+| %has_game_max_players% | Maximum number of players (e.g: "20")        |
+
+### Role Information
+
+| Placeholder               | Description                                  |
+| ------------------------- | -------------------------------------------- |
+| %has_game_role%           | Current role (HIDER/SEEKER/SPECTATOR)        |
+| %has_game_role_display%   | Role name in English/Translated              |
+| %has_game_is_spectator%   | Is spectator? (true/false)                   |
+
+### Game State Information
+
+| Placeholder                | Description                                  |
+| -------------------------- | -------------------------------------------- |
+| %has_game_state%           | Game state (WAITING/COUNTDOWN/PLAYING/ENDING) |
+| %has_game_state_display%   | Game state in English/Translated             |
+
+### Time Information
+
+| Placeholder                  | Description                                  |
+| ---------------------------- | -------------------------------------------- |
+| %has_game_time%              | Elapsed game time in seconds (e.g: "45")     |
+| %has_game_time_formatted%    | Formatted game time (e.g: "0:45" or "2:30")  |
+| %has_game_time_remaining%    | Remaining game time in seconds (e.g: "255")  |
+| %has_game_hiding_time%       | Hiding/Seeking delay remaining time (seconds) |
+| %has_game_countdown%         | Game start countdown in seconds              |
+
+### Player Count Information
+
+| Placeholder          | Description                          |
+| -------------------- | ------------------------------------ |
+| %has_game_hiders%    | Number of alive hiders (e.g: "5")    |
+| %has_game_seekers%   | Number of seekers (e.g: "2")         |
+
+### Game State Check
+
+| Placeholder          | Description                          |
+| -------------------- | ------------------------------------ |
+| %has_game_in_game%   | Is player in game? (true/false)      |
+
+## Leaderboard Placeholders
+
+<Note>Leaderboard shows top 10 players.</Note>
+
+### Wins Leaderboard
+
+| Placeholder              | Description                  |
+| ------------------------ | ---------------------------- |
+| %has_top_wins_1%         | 1st player name (most wins)  |
+| %has_top_wins_1_value%   | 1st player's wins count      |
+| %has_top_wins_1_wins%    | (alias: %has_top_wins_1_value%) |
+| %has_top_wins_2%         | 2nd player name              |
+| %has_top_wins_2_value%   | 2nd player's wins count      |
+| ...                      | ...                          |
+| %has_top_wins_10%        | 10th player name             |
+| %has_top_wins_10_value%  | 10th player's wins count     |
+
+### Kills Leaderboard
+
+| Placeholder               | Description                   |
+| ------------------------- | ----------------------------- |
+| %has_top_kills_1%         | Player name with most kills   |
+| %has_top_kills_1_value%   | Most kills count              |
+| %has_top_kills_2%         | 2nd player name               |
+| %has_top_kills_2_value%   | 2nd player's kills count      |
+| ...                       | ...                           |
+| %has_top_kills_10%        | 10th player name              |
+| %has_top_kills_10_value%  | 10th player's kills count     |
+
+### Coin Leaderboard
+
+| Placeholder               | Description                   |
+| ------------------------- | ----------------------------- |
+| %has_top_coins_1%         | Player name with most coins   |
+| %has_top_coins_1_value%   | Most coins count              |
+| %has_top_coins_2%         | 2nd player name               |
+| %has_top_coins_2_value%   | 2nd player's coins count      |
+| ...                       | ...                           |
+| %has_top_coins_10%        | 10th player name              |
+| %has_top_coins_10_value%  | 10th player's coins count     |
+
+### Games Leaderboard
+
+| Placeholder               | Description                       |
+| ------------------------- | --------------------------------- |
+| %has_top_games_1%         | Player name with most games played |
+| %has_top_games_1_value%   | Most games played count           |
+| %has_top_games_2%         | 2nd player name                   |
+| %has_top_games_2_value%   | 2nd player's games count          |
+| ...                       | ...                               |
+| %has_top_games_10%        | 10th player name                  |
+| %has_top_games_10_value%  | 10th player's games count         |

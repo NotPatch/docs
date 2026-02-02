@@ -24,7 +24,11 @@
             "group": "NHideAndSeek",
             "pages": [
               "plugins/n-hide-and-seek/overview",
-              "plugins/n-hide-and-seek/placeholders"
+              "plugins/n-hide-and-seek/placeholders",
+              "plugins/n-hide-and-seek/requirements",
+              "plugins/n-hide-and-seek/features",
+              "plugins/n-hide-and-seek/arena-setup",
+              "plugins/n-hide-and-seek/effects"
             ]
           },
           {

@@ -1,0 +1,407 @@
+---
+title: "Arena Setup"
+description: "Learn how to create and configure arenas in NHideAndSeek"
+---
+
+Setting up arenas is a fundamental part of NHideAndSeek. This guide covers arena creation, configuration, and spawn point management.
+
+---
+
+## Creating an Arena
+
+### Basic Creation
+
+To create a new arena, use the following command:
+
+```bash
+/has create <arenaName>
+```
+
+<Warning>
+Arena names should be unique and consist of alphanumeric characters. Spaces and special characters are not recommended.
+</Warning>
+
+**Example:**
+```bash
+/has create parkour
+/has create skyblock_hide
+/has create forest_escape
+```
+
+After creating an arena, the plugin will initialize it with default settings. You'll need to configure spawn points next.
+
+---
+
+## Arena Editor Mode
+
+### Entering Editor Mode
+
+To set spawn points and define the arena boundaries, enter editor mode:
+
+```bash
+/has editor <arenaName>
+```
+
+**Example:**
+```bash
+/has editor parkour
+```
+
+### Editor Controls
+
+Once in editor mode, you can set spawn locations:
+
+| Control | Action |
+|---------|--------|
+| **Left Click** | Set Position 1 (with item in hand) |
+| **Right Click** | Set Position 2 (with item in hand) |
+| **Drop Item** | Clear current selection |
+
+### Exiting Editor Mode
+
+To exit editor mode, use the same command again:
+
+```bash
+/has editor <arenaName>
+```
+
+---
+
+## Spawn Point Management
+
+### Setting Spawn Points
+
+After defining the arena area in editor mode, you need to set specific spawn points for different player roles also in editor mode.
+
+```bash
+/has setspawn <type>
+```
+
+#### Spawn Point Types
+
+| Type | Purpose | Who Spawns Here |
+|------|---------|-----------------|
+| **lobby** | Main lobby spawn | All players initially |
+| **hider** | Hider starting location | Players assigned as Hiders |
+| **seeker** | Seeker starting location | Players assigned as Seekers |
+| **spectator** | Spectator area | Players watching the game |
+
+### Setting Each Spawn Type
+
+Stand at the desired location and execute the command:
+
+```bash
+# Set lobby spawn (where players join)
+/has setspawn lobby
+
+# Set hider spawn (where hiders start hiding)
+/has setspawn hider
+
+# Set seeker spawn (where seekers begin searching)
+/has setspawn seeker
+
+# Set spectator spawn (where spectators watch)
+/has setspawn spectator
+```
+
+<Tip>
+Set the lobby spawn first, then hider, seeker, and spectator spawns. Test each spawn location in-game to ensure they're correct.
+</Tip>
+
+---
+
+## Arena Configuration
+
+### Opening Settings Menu
+
+To configure arena settings, use:
+
+```bash
+/has settings <arenaName>
+```
+
+This opens an inventory-based GUI where you can adjust various settings.
+
+### Configurable Settings
+
+| Setting | Range | Default | Purpose |
+|---------|-------|---------|---------|
+| **Min Players** | 1-100 | 2 | Minimum players to start game |
+| **Max Players** | 2-100 | 20 | Maximum player capacity |
+| **Game Duration** | 30-3600s | 300s | Total game length (5 minutes) |
+| **Seeker Ratio** | 2-10 | 4 | 1 seeker per X players |
+| **Hiding Time** | 5-300s | 20s | Grace period before seekers release |
+| **Hider Scale** | 0.1-1.0 | 0.4 | Hider size multiplier (40% of normal) |
+| **Speed Amplifier** | 0-5 | 2 | Hider speed boost level |
+| **Fireball Cooldown** | 0.5-10s | 2s | Seconds between fireball shots |
+| **Fireball Damage** | 0.5-20 | 5 | Damage per fireball hit |
+| **Unlimited Fireballs** | true/false | false | Unlimited fireball mode |
+
+### Understanding Game Settings
+
+#### Player Limits
+
+```
+Min Players: 2  →  Game won't start with less than 2 players
+Max Players: 20 →  Arena capacity is 20 players maximum
+```
+
+#### Seeker Ratio
+
+```
+Seeker Ratio: 4
+├─ 4-7 players   → 1 seeker
+├─ 8-11 players  → 2 seekers
+├─ 12-15 players → 3 seekers
+└─ 16+ players   → 4+ seekers (continues pattern)
+```
+
+#### Hider Settings
+
+- **Hider Scale**: At 0.4, hiders are 40% of normal size, making them harder to see
+- **Speed Amplifier**: Level 2 means hiders move 20% faster
+- **Hiding Time**: 20 seconds before seekers are released - gives hiders time to hide
+
+#### Fireball Settings
+
+- **Cooldown**: 2 seconds between shots means seekers can shoot every 2 seconds
+- **Damage**: 5 damage means 4 fireballs = 1 hider eliminated (assuming hiders have 20 health)
+- **Unlimited**: When enabled, seekers don't need items to shoot fireballs
+
+---
+
+## Arena Management
+
+### Listing Arenas
+
+To see all created arenas:
+
+```bash
+/has list
+```
+
+This displays all arenas with their current status and player count.
+
+### Deleting an Arena
+
+To remove an arena completely:
+
+```bash
+/has delete <arenaName>
+```
+
+<Danger>
+Deleting an arena is permanent. All arena data will be lost. Players currently in that arena will be kicked to the main lobby.
+</Danger>
+
+
+## Game Control
+
+### Starting a Game
+
+Once players have joined an arena, start the game:
+
+```bash
+/has start
+```
+
+This initiates a countdown (default: 10 seconds) before the game begins.
+
+<Info>
+You must have the minimum number of players for the game to start. Use `/has forcestart` to bypass this check.
+</Info>
+
+### Force Starting
+
+To start a game regardless of player count:
+
+```bash
+/has forcestart <arenaName>
+```
+
+### Stopping a Game
+
+To end an active game prematurely:
+
+```bash
+/has stop
+```
+
+The arena will reset to the waiting state, and all players will be moved to the spectator area.
+
+### Force Stopping
+
+To forcefully stop any game:
+
+```bash
+/has forcestop <arenaName>
+```
+
+---
+
+## Best Practices
+
+### Arena Design Tips
+
+1. **Lobby Area**: Make it spacious and easy to navigate
+   - Use clear walkways
+   - Separate from gameplay area
+   - Add signs for directions
+
+2. **Hider Spawn**: Place away from seeker spawn
+   - Give hiders a running start
+   - Avoid cramped spaces
+   - Ensure multiple escape routes
+
+3. **Seeker Spawn**: Central location
+   - Allows coverage of entire map
+   - Balanced distance to hider spawns
+   - Elevated position for visibility (optional)
+
+4. **Spectator Area**: Elevated or isolated
+   - Won't interfere with gameplay
+   - Good visibility of action
+   - Protected from fireballs
+
+### Configuration Recommendations
+
+**For Casual Play:**
+```
+Min Players: 3
+Max Players: 20
+Game Duration: 5 minutes (300s)
+Seeker Ratio: 4
+Hiding Time: 20s
+Hider Scale: 0.4
+Speed Amplifier: 2
+Fireball Damage: 5
+```
+
+**For Competitive/Tournament:**
+```
+Min Players: 6
+Max Players: 16
+Game Duration: 8 minutes (480s)
+Seeker Ratio: 3
+Hiding Time: 30s
+Hider Scale: 0.5
+Speed Amplifier: 1
+Fireball Damage: 3
+```
+
+**For Streamer Events:**
+```
+Min Players: 4
+Max Players: 12
+Game Duration: 10 minutes (600s)
+Seeker Ratio: 5
+Hiding Time: 45s
+Hider Scale: 0.3
+Speed Amplifier: 3
+Fireball Damage: 4
+Unlimited Fireballs: true
+```
+
+---
+
+## Troubleshooting
+
+### Arena Won't Start
+
+**Problem**: Clicking start but nothing happens
+
+**Solutions**:
+1. Check player count meets minimum requirement: `/has list`
+2. Ensure all spawn points are set: `/has editor <arena>` then `/has settings <arena>`
+3. Check console for error messages
+4. Use `/has forcestart` if minimum players requirement is the issue
+
+### Players Spawning in Wrong Location
+
+**Problem**: Players spawning outside arena or in water
+
+**Solutions**:
+1. Re-set spawn points: `/has setspawn <type>`
+2. Ensure spawn location is solid ground
+3. Check Y-coordinate is not too high or low
+4. Test spawn by joining arena
+
+### Game Ending Too Quickly
+
+**Problem**: Games end before expected time
+
+**Solutions**:
+1. Check game duration setting: `/has settings <arena>`
+2. Verify hiders have adequate hiding spots
+3. Ensure hider speed and size are balanced
+4. Check seeker ratio isn't too high
+
+### Fireballs Not Working
+
+**Problem**: Seekers can't shoot fireballs
+
+**Solutions**:
+1. Check fireball damage isn't set to 0
+2. Verify cooldown isn't too long
+3. Ensure seekers are in SEEKER role
+4. Check if "Unlimited Fireballs" is disabled - if so, seekers need fireball items
+
+---
+
+## Advanced Configuration
+
+### Database Integration
+
+Arenas are automatically saved to the configured database (SQLite by default). No additional setup needed.
+
+### Custom World Support
+
+Arenas can span multiple worlds. When setting spawns, the current world is automatically recorded.
+
+### Performance Optimization
+
+For large arenas or servers with many arenas:
+1. Keep arena sizes reasonable (under 10,000 blocks)
+2. Avoid overly complex terrain
+3. Limit active games with max player count
+4. Monitor server TPS
+
+---
+
+## Quick Reference
+
+### Essential Commands
+
+```bash
+# Create new arena
+/has create <name>
+
+# Edit arena (set boundaries)
+/has editor <name>
+
+# Set spawn points
+/has setspawn lobby|hider|seeker|spectator
+
+# Configure settings
+/has settings <name>
+
+# List all arenas
+/has list
+
+# Start game
+/has start
+
+# Stop game
+/has stop
+
+# Delete arena
+/has delete <name>
+```
+
+### Required Permissions
+
+All arena setup commands require: `nhideandseek.admin`
+
+---
+
+**Need Help?** Check the [Commands](/commands) page for detailed command information.

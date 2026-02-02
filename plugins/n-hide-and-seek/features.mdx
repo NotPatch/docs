@@ -1,0 +1,154 @@
+---
+title: "Features"
+description: "Explore the powerful features of NHideAndSeek plugin"
+---
+
+NHideAndSeek provides a complete Hide and Seek experience with advanced role management, comprehensive statistics tracking, and customizable gameplay mechanics.
+
+---
+
+## Core Gameplay
+
+### Pre-Assigned Role System
+
+Admins can assign specific players to roles (Seeker/Hider) before the game starts directly in the lobby. This feature enables content creators and event organizers to control team composition precisely.
+
+```bash
+/has setrole <player> <role>
+# Example: /has setrole Youtuber seeker
+```
+
+### Automatic Role Assignment
+
+Remaining players are automatically distributed among roles based on the configurable seeker ratio. This ensures balanced teams throughout the game.
+
+- **Default Ratio**: 1 seeker per 4 players
+- **Example**: 10 players = 2-3 seekers automatically assigned
+
+### Fireball Mechanics
+
+Seekers can shoot fireballs to eliminate hiders. All mechanics are fully customizable:
+
+- Adjustable damage (0.5-20 per hit)
+- Cooldown between shots (0.5-10 seconds)
+- Optional unlimited fireball mode
+- Explosion radius customization
+
+### Hider Enhancement Effects
+
+Hiders receive special effects to balance gameplay and enhance the hiding experience:
+
+- **Size Reduction**: Scale from 0.1x to 1.0x
+- **Speed Boost**: Up to 5 levels of speed amplification
+- **Optional Invisibility**: Temporary invisibility cloak ability
+
+## Statistics & Progression
+
+### Tracked Player Statistics
+
+The plugin tracks comprehensive player statistics stored securely in a database:
+
+**Basic Statistics**
+- Games Played: Total games participated
+- Games Won: Total victories (any role)
+- Games Lost: Total defeats
+- Win Rate: Calculated percentage (0-100%)
+- Coins: Currency earned through gameplay
+- Time Played: Total in-game hours and minutes
+
+**Combat Statistics**
+- Total Kills: Number of hiders eliminated
+- Total Deaths: Number of eliminations received
+- Kill/Death Ratio: Calculated K/D ratio
+
+**Role-Specific Statistics**
+- Wins as Hider: Victories in hiding role
+- Wins as Seeker: Victories in seeking role
+
+**Progression System**
+The statistics system is expandable through the Developer API for custom achievements and ranking systems.
+
+---
+
+## User Interface
+
+### Arena Selection Menu
+- Browse all available arenas
+- View arena status and current player count
+- Quick join functionality
+- Search and filter options
+
+### Settings Menu
+Admin configuration panel to:
+- Adjust game duration
+- Configure seeker ratio
+- Modify effect settings
+- Set player limits
+
+### Effects Shop
+Cosmetic purchases system:
+- Purchase cosmetic effects with earned coins
+- Spend coins on cosmetics
+- Customizable effect catalog
+- Multiple effect types available
+
+### Player Statistics Panel
+Personal achievement display:
+- View personal statistics
+- Compare with other players
+- Check progression history
+- View achievements
+
+---
+
+## Advanced Features
+
+### Multi-Language Support
+
+- **Built-in**: Turkish & English
+- **Extensible**: Easy to add custom languages
+- **Live**: Language changes without restart
+
+### Chat System
+
+- **Global Chat**: All players on server
+- **Team Chat**: Same arena only
+- **Spectator Chat**: Spectators + Admin
+
+### Game Logging
+
+All game events are logged including:
+- Game start/end
+- Player joins/leaves
+- Role assignments
+- Kill events
+- Coin transactions
+
+### Developer API
+
+- **GameManager API**: Full game control programmatically
+- **PlayerDataRepository**: Access player statistics
+- **Event System**: Listen to game events
+- **Arena Manager**: Create/modify arenas via code
+- **Effect Manager**: Custom effect injection
+
+### Plugin Hooks
+
+- PlaceholderAPI integration
+- Metrics collection (bStats)
+- Paper library system compatibility
+- Custom language loading system
+
+---
+
+## What's Coming
+
+Future versions will include:
+- Custom achievements system
+- Ranking tiers and badges
+- Replay system
+- Advanced statistics dashboard
+- Custom game modes
+- Cosmetic customization
+- Team-based tournaments
+- Advanced matchmaking
