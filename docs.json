@@ -23,7 +23,8 @@
           {
             "group": "NHideAndSeek",
             "pages": [
-              "plugins/n-hide-and-seek/overview"
+              "plugins/n-hide-and-seek/overview",
+              "plugins/n-hide-and-seek/placeholders"
             ]
           },
           {
