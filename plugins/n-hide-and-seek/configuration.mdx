@@ -1,0 +1,754 @@
+---
+title: "Configuration"
+description: "Complete configuration reference for NHideAndSeek plugin"
+---
+
+This guide covers all configuration options available in NHideAndSeek, including main config, arena settings, and item customization.
+
+---
+
+## Main Configuration
+
+The main configuration file is located at `plugins/NHideAndSeek/config.yml`.
+
+### General Settings
+
+```yaml
+settings:
+  debug: false                    # Enable debug mode for troubleshooting
+  lang: en_US                     # Default language (en_US, tr_TR)
+  game-chat-enabled: true         # Enable game-specific chat system
+  game-logging: true              # Enable game event logging
+  log-batch-size: 50              # Number of logs to batch before writing
+  log-flush-interval: 10000       # Log flush interval in milliseconds
+```
+
+<AccordionGroup>
+  <Accordion title="debug">
+    Enables detailed console logging for debugging purposes. Set to `true` only when troubleshooting issues.
+
+    **Default:** `false`
+  </Accordion>
+
+  <Accordion title="lang">
+    Sets the default language for all players. Players can override this in their settings.
+
+    **Available:** `en_US` (English), `tr_TR` (Turkish)
+
+    **Default:** `en_US`
+  </Accordion>
+
+  <Accordion title="game-chat-enabled">
+    Enables the advanced chat system with team chat, global chat, and spectator chat modes.
+
+    **Default:** `true`
+  </Accordion>
+
+  <Accordion title="game-logging">
+    Logs all game events to files in `plugins/NHideAndSeek/logs/` directory.
+
+    **Default:** `true`
+  </Accordion>
+</AccordionGroup>
+
+---
+
+### Database Configuration
+
+NHideAndSeek supports both SQLite and MySQL databases.
+
+#### SQLite (Default)
+
+```yaml
+database:
+  type: SQLITE
+```
+
+Simple file-based database, perfect for small to medium servers. No additional configuration needed.
+
+#### MySQL
+
+```yaml
+database:
+  type: MYSQL
+  host: localhost                 # MySQL server address
+  port: 3306                      # MySQL server port
+  database: nhideandseek          # Database name
+  username: root                  # MySQL username
+  password: password123           # MySQL password
+
+  # Connection Pool Settings (HikariCP)
+  pool-size: 10                   # Maximum pool size
+  minimum-idle: 2                 # Minimum idle connections
+  keepalive-time: 600000          # Keepalive time (ms)
+  maximum-lifetime: 1800000       # Max connection lifetime (ms)
+  connection-timeout: 10000       # Connection timeout (ms)
+```
+
+<Tip>
+  For large servers with multiple instances, use MySQL for centralized data storage.
+</Tip>
+
+<AccordionGroup>
+  <Accordion title="Connection Pool Settings">
+    **pool-size**: Maximum number of connections in the pool. Increase for high-traffic servers.
+
+    **minimum-idle**: Minimum number of idle connections to maintain. Should be lower than pool-size.
+
+    **keepalive-time**: How often to send keepalive queries (in milliseconds).
+
+    **maximum-lifetime**: Maximum time a connection can exist (in milliseconds).
+
+    **connection-timeout**: How long to wait for a connection before timing out (in milliseconds).
+  </Accordion>
+</AccordionGroup>
+
+---
+
+### Main Lobby
+
+Configure the main lobby where players are teleported after leaving games.
+
+```yaml
+main-lobby:
+  enabled: false                  # Enable main lobby teleportation
+  world: world                    # World name
+  x: 0.0                          # X coordinate
+  y: 64.0                         # Y coordinate
+  z: 0.0                          # Z coordinate
+  yaw: 0.0                        # Player rotation (horizontal)
+  pitch: 0.0                      # Player rotation (vertical)
+```
+
+<Note>
+  Set the main lobby location using `/has setmainlobby` command in-game.
+</Note>
+
+---
+
+### Economy & Rewards
+
+Configure coin rewards for players.
+
+```yaml
+economy:
+  winner-points: 10               # Coins for winning a game
+  participation-points: 1         # Coins for participating
+```
+
+| Event | Coins | Description |
+|-------|-------|-------------|
+| **Win** | 10 | Awarded to winners (both seekers and hiders) |
+| **Participation** | 1 | Awarded to all players who complete a game |
+
+<Tip>
+  Balance these values based on your effect shop prices to create a fair economy.
+</Tip>
+
+---
+
+## Item Configuration
+
+NHideAndSeek uses a powerful item configuration system that supports custom model data, glow effects, and more.
+
+### Item Configuration Structure
+
+All items follow this structure:
+
+```yaml
+item-name:
+  material: "MATERIAL_NAME"       # Required
+  amount: 1                       # Optional (default: 1)
+  custom-model-data: 0            # Optional (0 = disabled)
+  display-name: "&6Display Name"  # Optional
+  lore:                           # Optional
+    - "&7Line 1"
+    - "&7Line 2"
+  glow: false                     # Optional (enchanted glow)
+  item-flags:                     # Optional
+    - "HIDE_ATTRIBUTES"
+    - "HIDE_ENCHANTS"
+  slot: 0                         # Optional (inventory slot)
+```
+
+### Supported Features
+
+<CardGroup cols={2}>
+  <Card title="Custom Model Data" icon="cube">
+    Use resource packs to display custom item models
+  </Card>
+  <Card title="Glow Effect" icon="sparkles">
+    Add enchanted glow without showing enchantments
+  </Card>
+  <Card title="Hex Colors" icon="palette">
+    Full RGB color support with `#RRGGBB` format
+  </Card>
+  <Card title="Item Flags" icon="flag">
+    Hide vanilla attributes, enchantments, and more
+  </Card>
+</CardGroup>
+
+---
+
+### Fireball Item
+
+Seekers use fireballs to eliminate hiders.
+
+```yaml
+fireball-item:
+  material: STICK
+  custom-model-data: 0            # Set to resource pack model ID
+  display-name: "&c&lFireball"
+  lore:
+    - "&7Right-click to shoot!"
+    - "&7Cooldown: %cooldown%s"   # Dynamic placeholder
+```
+
+**Custom Model Data Example:**
+```yaml
+fireball-item:
+  material: STICK
+  custom-model-data: 1001         # Resource pack model
+  display-name: "#FF6B6B&lᴍᴀɢɪᴄ ᴡᴀɴᴅ"
+  lore:
+    - "#FFE66D✦ #7DD3FCʀɪɢʜᴛ-ᴄʟɪᴄᴋ ᴛᴏ ᴄᴀѕᴛ"
+    - "#A8E6A0ᴄᴏᴏʟᴅᴏᴡɴ: #FCD05C%cooldown%ѕ"
+  glow: true                      # Add enchanted glow
+```
+
+<Info>
+  The `%cooldown%` placeholder is automatically replaced with the fireball cooldown time.
+</Info>
+
+---
+
+### Effect Selection Item
+
+Displayed in lobby for players to choose their cosmetic effects.
+
+```yaml
+select-effect-item:
+  material: BLAZE_POWDER
+  custom-model-data: 0
+  slot: 4                         # Middle slot of hotbar
+  display-name: "&6&lSelect Effect"
+  lore:
+    - "&7Choose your special effect!"
+    - "&7from the available options."
+```
+
+---
+
+### Leave Arena Item
+
+Allows players to leave the game and return to lobby.
+
+```yaml
+leave-arena-item:
+  material: RED_BED
+  custom-model-data: 0
+  slot: 8                         # Last slot of hotbar
+  display-name: "&c&lLeave Arena"
+  lore:
+    - "&7Click to leave the arena."
+    - "&7You will return to the main lobby."
+```
+
+---
+
+### Color Formatting
+
+NHideAndSeek supports multiple color formats:
+
+<Tabs>
+  <Tab title="Legacy Codes">
+    ```yaml
+    display-name: "&6&lGolden Text &r&7Gray"
+    ```
+
+    | Code | Color | Code | Format |
+    |------|-------|------|--------|
+    | `&0` | Black | `&l` | Bold |
+    | `&1` | Dark Blue | `&m` | Strikethrough |
+    | `&2` | Dark Green | `&n` | Underline |
+    | `&3` | Dark Aqua | `&o` | Italic |
+    | `&4` | Dark Red | `&r` | Reset |
+    | `&5` | Dark Purple | | |
+    | `&6` | Gold | | |
+    | `&7` | Gray | | |
+    | `&8` | Dark Gray | | |
+    | `&9` | Blue | | |
+    | `&a` | Green | | |
+    | `&b` | Aqua | | |
+    | `&c` | Red | | |
+    | `&d` | Light Purple | | |
+    | `&e` | Yellow | | |
+    | `&f` | White | | |
+  </Tab>
+
+  <Tab title="Hex Colors">
+    ```yaml
+    display-name: "#FF6B6B&lCustom Red #7DD3FCand Cyan"
+    ```
+
+    Use `#RRGGBB` format for 16.7 million colors!
+
+    **Examples:**
+    - `#FF6B6B` - Soft Red
+    - `#7DD3FC` - Sky Blue
+    - `#A8E6A0` - Mint Green
+    - `#FFE66D` - Golden Yellow
+    - `#FCD05C` - Warm Orange
+  </Tab>
+
+</Tabs>
+
+---
+
+### Item Flags
+
+Hide various item attributes and information.
+
+```yaml
+item-name:
+  item-flags:
+    - "HIDE_ATTRIBUTES"           # Hide attack damage, speed, etc.
+    - "HIDE_ENCHANTS"             # Hide enchantment list
+    - "HIDE_UNBREAKABLE"          # Hide "Unbreakable" tag
+    - "HIDE_DESTROYS"             # Hide "Can Destroy" info
+    - "HIDE_PLACED_ON"            # Hide "Can Be Placed On" info
+    - "HIDE_POTION_EFFECTS"       # Hide potion effects
+    - "HIDE_DYE"                  # Hide dye information
+```
+
+<Note>
+  The plugin automatically adds `HIDE_ATTRIBUTES` to all items. Add others as needed.
+</Note>
+
+---
+
+### Glow Effect
+
+Add an enchanted glow to items without displaying enchantments.
+
+```yaml
+item-name:
+  glow: true
+```
+
+This automatically:
+1. Adds Unbreaking I enchantment
+2. Adds `HIDE_ENCHANTS` flag
+3. Creates a glowing effect
+
+**Example:**
+```yaml
+premium-item:
+  material: DIAMOND
+  display-name: "#7DD3FC&lᴘʀᴇᴍɪᴜᴍ ɪᴛᴇᴍ"
+  glow: true                      # Makes it glow!
+```
+
+---
+
+## Extra Settings
+
+Additional gameplay restrictions and features.
+
+```yaml
+extra-settings:
+  prevent-block-break: true       # Prevent breaking blocks in arenas
+  prevent-block-place: true       # Prevent placing blocks in arenas
+  prevent-drop: true              # Prevent dropping items
+  prevent-pickup: true            # Prevent picking up items
+```
+
+<Warning>
+  Disabling these protections may allow players to exploit or grief arenas.
+</Warning>
+
+---
+
+## Sound Configuration
+
+Customize UI and game sounds.
+
+```yaml
+sounds:
+  click: "UI_BUTTON_CLICK"        # Menu click sound
+  success: "ENTITY_PLAYER_LEVELUP" # Success action sound
+  error: "ENTITY_VILLAGER_NO"     # Error action sound
+  open: "BLOCK_CHEST_OPEN"        # Menu open sound
+  close: "BLOCK_CHEST_CLOSE"      # Menu close sound
+```
+
+### Available Sound Categories
+
+<Tabs>
+  <Tab title="UI Sounds">
+    - `UI_BUTTON_CLICK` - Button clicks
+    - `UI_TOAST_IN` - Toast notification appear
+    - `UI_TOAST_OUT` - Toast notification disappear
+    - `BLOCK_NOTE_BLOCK_PLING` - Note block pling
+  </Tab>
+
+  <Tab title="Entity Sounds">
+    - `ENTITY_PLAYER_LEVELUP` - Level up sound
+    - `ENTITY_EXPERIENCE_ORB_PICKUP` - XP pickup
+    - `ENTITY_VILLAGER_YES` - Villager yes
+    - `ENTITY_VILLAGER_NO` - Villager no
+    - `ENTITY_ENDERMAN_TELEPORT` - Teleport sound
+  </Tab>
+
+  <Tab title="Block Sounds">
+    - `BLOCK_CHEST_OPEN` - Chest opening
+    - `BLOCK_CHEST_CLOSE` - Chest closing
+    - `BLOCK_ANVIL_LAND` - Heavy impact
+    - `BLOCK_NOTE_BLOCK_BELL` - Bell sound
+  </Tab>
+
+  <Tab title="Ambient Sounds">
+    - `AMBIENT_CAVE` - Cave ambience
+    - `MUSIC_DISC_CAT` - Music disc
+    - `ITEM_GOAT_HORN_SOUND_0` - Horn sound
+  </Tab>
+</Tabs>
+
+<Tip>
+  Find all available sounds at [Minecraft Sound List](https://www.digminecraft.com/lists/sound_list_pc.php)
+</Tip>
+
+---
+
+## Arena Configuration
+
+Each arena has its own configuration file in `plugins/NHideAndSeek/arenas/`.
+
+### Basic Arena Settings
+
+```yaml
+name: "Arena Name"
+id: "uuid-here"
+enabled: true
+world: "world"
+
+# Arena boundaries
+bounds:
+  pos1:
+    x: 100.0
+    y: 64.0
+    z: 100.0
+  pos2:
+    x: 200.0
+    y: 100.0
+    z: 200.0
+```
+
+### Spawn Points
+
+```yaml
+spawns:
+  lobby:
+    world: world
+    x: 150.0
+    y: 65.0
+    z: 150.0
+    yaw: 0.0
+    pitch: 0.0
+
+  spectator:
+    world: world
+    x: 150.0
+    y: 80.0
+    z: 150.0
+    yaw: 0.0
+    pitch: 0.0
+
+  hider:
+    0:
+      world: world
+      x: 120.0
+      y: 65.0
+      z: 130.0
+      yaw: 90.0
+      pitch: 0.0
+    1:
+      world: world
+      x: 180.0
+      y: 65.0
+      z: 170.0
+      yaw: -90.0
+      pitch: 0.0
+
+  seeker:
+    0:
+      world: world
+      x: 150.0
+      y: 65.0
+      z: 150.0
+      yaw: 180.0
+      pitch: 0.0
+```
+
+<Note>
+  Use in-game commands to set spawn points. Manual editing is not recommended.
+</Note>
+
+---
+
+### Game Settings
+
+```yaml
+settings:
+  min-players: 4                  # Minimum players to start
+  max-players: 20                 # Maximum players allowed
+  game-duration: 300              # Game duration in seconds
+  countdown-duration: 10          # Pre-game countdown
+  lobby-countdown: 30             # Lobby countdown before game
+  hiding-time: 15                 # Seeker delay time
+```
+
+### Team Settings
+
+```yaml
+settings:
+  teams:
+    auto-balance: true            # Auto-balance teams
+    seeker-ratio: 4               # 1 seeker per 4 players
+    seeker-priority:
+      enabled: true               # Enable priority system
+      permissions:
+        - "vip.premium"           # Priority permissions
+        - "vip.elite"
+      priority-weight: 3.0        # Weight multiplier
+```
+
+<AccordionGroup>
+  <Accordion title="seeker-ratio">
+    Determines how many seekers are assigned based on player count.
+
+    **Examples:**
+    - Ratio `4`: 8 players = 2 seekers, 12 players = 3 seekers
+    - Ratio `5`: 10 players = 2 seekers, 15 players = 3 seekers
+
+    **Default:** `4`
+  </Accordion>
+
+  <Accordion title="seeker-priority">
+    Players with priority permissions are more likely to become seekers.
+
+    **priority-weight**: Higher = more likely to be seeker
+
+    Example: Weight `3.0` makes VIP players 3x more likely to be seeker.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+### Hider Settings
+
+```yaml
+settings:
+  hider:
+    scale: 0.5                    # Player size (0.1-10.0)
+    speed:
+      enabled: true               # Enable speed effect
+      amplifier: 1                # Speed level (0-255)
+    invisibility:
+      enabled: false              # Enable invisibility
+      duration: 30                # Duration in seconds
+```
+
+<Warning>
+  Setting scale below 0.1 or above 3.0 may cause visual glitches.
+</Warning>
+
+---
+
+### Seeker Settings
+
+```yaml
+settings:
+  seeker:
+    fireball:
+      cooldown: 3                 # Seconds between shots
+      speed: 1.5                  # Projectile speed
+      damage: 4.0                 # Damage dealt
+      fire-ticks: 100             # Fire duration (ticks)
+      explosion-radius: 2.0       # Visual explosion size
+      unlimited: true             # Unlimited ammo
+    effects:
+      night-vision:
+        enabled: true             # Enable night vision
+```
+
+---
+
+### Spectator Settings
+
+```yaml
+settings:
+  spectator:
+    enabled: true                 # Enable spectator mode
+    fly: true                     # Allow flying
+```
+
+---
+
+## Menu Configuration
+
+Customize GUI menus in `plugins/NHideAndSeek/menus/`.
+
+### Menu Structure
+
+```yaml
+menu-name:
+  title: "&6Menu Title"           # Supports hex colors
+  size: 54                        # Must be multiple of 9 (9-54)
+
+  items:
+    item-id:
+      slot: 0                     # Inventory slot (0-53)
+      material: "MATERIAL"
+      custom-model-data: 0
+      display-name: "&eItem Name"
+      lore:
+        - "&7Line 1"
+        - "&7Line 2"
+      glow: false
+      item-flags:
+        - "HIDE_ATTRIBUTES"
+```
+
+### Filler Items
+
+Fill empty slots with decorative panes.
+
+```yaml
+menu-name:
+  items:
+    filler:
+      enabled: true
+      slots: [0, 1, 2, 3, 5, 6, 7, 8]  # List of slots
+      material: "GRAY_STAINED_GLASS_PANE"
+      display-name: " "           # Empty name
+      lore: []                    # No lore
+```
+
+---
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Backup Configs" icon="floppy-disk">
+    Always backup configuration files before making changes
+  </Card>
+  <Card title="Test Changes" icon="flask">
+    Test configuration changes on a test server first
+  </Card>
+  <Card title="YAML Validation" icon="check">
+    Use a YAML validator to check syntax errors
+  </Card>
+  <Card title="Reload Plugin" icon="rotate">
+    Use `/has reload` to apply changes without restart
+  </Card>
+</CardGroup>
+
+### Common Mistakes
+
+<Warning>
+  **YAML Indentation**: Use 2 spaces, not tabs. Incorrect indentation breaks the config.
+</Warning>
+
+```yaml
+# ❌ Wrong (tabs)
+settings:
+	debug: false
+
+# ✅ Correct (2 spaces)
+settings:
+  debug: false
+```
+
+<Warning>
+  **Invalid Materials**: Use exact Minecraft material names. Check [Material List](https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html).
+</Warning>
+
+---
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Config not loading">
+    - Check YAML syntax with a validator
+    - Look for error messages in console
+    - Delete config and regenerate with `/has reload`
+    - Check file permissions
+  </Accordion>
+
+  <Accordion title="Items not displaying correctly">
+    - Verify material name is correct
+    - Check custom-model-data matches resource pack
+    - Ensure hex colors use `#` not `&`
+    - Test item with `/give` command first
+  </Accordion>
+
+  <Accordion title="Database connection failed">
+    - For MySQL: Check credentials and permissions
+    - Verify database exists
+    - Check if MySQL server is running
+    - Test connection with MySQL client
+    - Check firewall settings
+  </Accordion>
+
+  <Accordion title="Performance issues">
+    - Lower `pool-size` if using MySQL
+    - Disable `game-logging` temporarily
+    - Check `debug` is set to `false`
+    - Monitor with `/has performance` command
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Advanced Tips
+
+### Multi-Language Support
+
+Add custom language files in `plugins/NHideAndSeek/languages/`:
+
+```yaml
+# languages/custom_EN.yml
+prefix: "&8[&6H&A&S&8]&r"
+game:
+  starting: "&aGame starts in &e%time%&a!"
+  # ... more translations
+```
+
+Then set in config:
+```yaml
+settings:
+  lang: custom_EN
+```
+
+### Performance Optimization
+
+```yaml
+database:
+  pool-size: 5                    # Lower for single server
+  minimum-idle: 1
+
+settings:
+  log-batch-size: 100             # Higher = less frequent writes
+  log-flush-interval: 30000       # 30 seconds
+
+performance:
+  alerts:
+    alert-cooldown: 600           # 10 minutes between alerts
+```
+
+---
+
+<Tip>
+  Need help? Join our Discord or open an issue on GitHub with your configuration questions!
+</Tip>

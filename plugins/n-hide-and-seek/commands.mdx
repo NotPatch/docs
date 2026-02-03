@@ -1,0 +1,796 @@
+---
+title: "Commands & Permissions"
+description: "Complete command reference and permission nodes for NHideAndSeek"
+---
+
+This guide covers all available commands, their usage, permissions, and examples for NHideAndSeek plugin.
+
+---
+
+## Command Overview
+
+All NHideAndSeek commands use the base command `/has` or `/hideandseek`.
+
+<CardGroup cols={2}>
+  <Card title="Player Commands" icon="user">
+    Join games, view stats, purchase effects, and more
+  </Card>
+  <Card title="Admin Commands" icon="shield">
+    Create arenas, manage games, configure settings
+  </Card>
+</CardGroup>
+
+---
+
+## Player Commands
+
+Commands available to all players without special permissions.
+
+### Basic Commands
+
+<AccordionGroup>
+  <Accordion title="/has help" icon="circle-question">
+    **Description:** Display command help menu
+
+    **Usage:** `/has help`
+
+    **Permission:** None (default)
+
+    **Example:**
+    ```
+    /has help
+    ```
+
+    Shows a list of available commands based on your permissions.
+  </Accordion>
+
+  <Accordion title="/has menu" icon="list">
+    **Description:** Open the arena selection menu
+
+    **Usage:** `/has menu`
+
+    **Permission:** None (default)
+
+    **Aliases:** None
+
+    **Example:**
+    ```
+    /has menu
+    ```
+
+    Opens a GUI showing all available arenas with their current status and player counts.
+  </Accordion>
+
+  <Accordion title="/has join <arena>" icon="door-open">
+    **Description:** Join a specific arena
+
+    **Usage:** `/has join <arena>`
+
+    **Permission:** None (default)
+
+    **Arguments:**
+    - `<arena>` - Name of the arena to join
+
+    **Examples:**
+    ```
+    /has join lobby
+    /has join parkour
+    /has join citymap
+    ```
+
+    **Notes:**
+    - Arena must be in waiting/countdown state
+    - Arena must not be full
+    - You cannot join if already in a game
+  </Accordion>
+
+  <Accordion title="/has leave" icon="door-closed">
+    **Description:** Leave your current game
+
+    **Usage:** `/has leave`
+
+    **Permission:** None (default)
+
+    **Example:**
+    ```
+    /has leave
+    ```
+
+    **Notes:**
+    - Returns you to main lobby (if configured)
+    - Your statistics are saved
+    - You can rejoin immediately
+  </Accordion>
+
+  <Accordion title="/has list" icon="table">
+    **Description:** List all available arenas
+
+    **Usage:** `/has list`
+
+    **Permission:** None (default)
+
+    **Example:**
+    ```
+    /has list
+    ```
+
+    Shows arena names, current player counts, and game status.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+### Statistics Commands
+
+<AccordionGroup>
+  <Accordion title="/has stats [player]" icon="chart-line">
+    **Description:** View player statistics
+
+    **Usage:** `/has stats [player]`
+
+    **Permission:** None (default)
+
+    **Arguments:**
+    - `[player]` - Optional player name (defaults to yourself)
+
+    **Examples:**
+    ```
+    /has stats
+    /has stats Notch
+    /has stats Steve123
+    ```
+
+    **Statistics Displayed:**
+    - Games played & won
+    - Wins as Hider/Seeker
+    - Total kills & deaths
+    - K/D ratio
+    - Win rate percentage
+    - Total coins
+    - Time played
+  </Accordion>
+
+  <Accordion title="/has leaderboard" icon="trophy">
+    **Description:** View top players leaderboard
+
+    **Usage:** `/has leaderboard`
+
+    **Permission:** None (default)
+
+    **Aliases:** `/has top`
+
+    **Examples:**
+    ```
+    /has leaderboard
+    /has top
+    ```
+
+    **Leaderboards:**
+    - Top Wins
+    - Top Kills
+    - Top Coins
+    - Top Games Played
+
+    Shows top 10 players in each category.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+### Shop & Effects
+
+<AccordionGroup>
+  <Accordion title="/has effects" icon="wand-magic-sparkles">
+    **Description:** Open the effects shop
+
+    **Usage:** `/has effects`
+
+    **Permission:** None (default)
+
+    **Aliases:** `/has shop`
+
+    **Examples:**
+    ```
+    /has effects
+    /has shop
+    ```
+
+    **Features:**
+    - Browse WIN, KILL, and DIE effects
+    - Purchase effects with coins
+    - Select active effects
+    - Preview effect descriptions
+  </Accordion>
+
+  <Accordion title="/has skills" icon="star">
+    **Description:** Open skills menu (if available)
+
+    **Usage:** `/has skills`
+
+    **Permission:** None (default)
+
+    **Example:**
+    ```
+    /has skills
+    ```
+
+    Future feature for skill tree progression.
+  </Accordion>
+
+  <Accordion title="/has achievements" icon="award">
+    **Description:** View achievements (if available)
+
+    **Usage:** `/has achievements`
+
+    **Permission:** None (default)
+
+    **Example:**
+    ```
+    /has achievements
+    ```
+
+    Future feature for achievement tracking.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+### Communication
+
+<AccordionGroup>
+  <Accordion title="/has chat" icon="message">
+    **Description:** Toggle between chat modes
+
+    **Usage:** `/has chat`
+
+    **Permission:** None (default)
+
+    **Example:**
+    ```
+    /has chat
+    ```
+
+    **Chat Modes:**
+    - **Global Chat** - Talk to all players on the server
+    - **Team Chat** - Talk only to players in your arena
+    - **Spectator Chat** - Spectators and admins only
+
+    Cycles through available modes based on your game state.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Admin Commands
+
+Commands for server administrators and moderators.
+
+### Arena Management
+
+<AccordionGroup>
+  <Accordion title="/has create <arena>" icon="plus">
+    **Description:** Create a new arena
+
+    **Usage:** `/has create <arena>`
+
+    **Permission:** `nhideandseek.admin`
+
+    **Arguments:**
+    - `<arena>` - Name of the new arena (alphanumeric)
+
+    **Examples:**
+    ```
+    /has create lobby
+    /has create forest
+    /has create citymap
+    ```
+
+    **Notes:**
+    - Arena name must be unique
+    - Creates arena with default settings
+    - Requires further setup with editor mode
+    - Arena starts as disabled until setup is complete
+  </Accordion>
+
+  <Accordion title="/has delete <arena>" icon="trash">
+    **Description:** Delete an existing arena
+
+    **Usage:** `/has delete <arena>`
+
+    **Permission:** `nhideandseek.admin`
+
+    **Arguments:**
+    - `<arena>` - Name of the arena to delete
+
+    **Examples:**
+    ```
+    /has delete oldmap
+    /has delete testarea
+    ```
+
+    **Warning:**
+    <Warning>
+      This action is permanent! The arena configuration file will be deleted.
+    </Warning>
+
+    - Kicks all players from the arena
+    - Deletes arena configuration file
+    - Cannot be undone
+  </Accordion>
+
+  <Accordion title="/has editor <arena>" icon="pen-to-square">
+    **Description:** Enter/exit arena editor mode
+
+    **Usage:** `/has editor <arena>`
+
+    **Permission:** `nhideandseek.admin`
+
+    **Arguments:**
+    - `<arena>` - Name of the arena to edit
+
+    **Examples:**
+    ```
+    /has editor lobby
+    /has editor parkour
+    ```
+
+    **Editor Mode Features:**
+    - Set arena boundaries (pos1, pos2)
+    - Configure spawn points
+    - Set world region
+    - Visual tools for setup
+
+    **Tools Received:**
+    - **Arena Wand** - Left click: pos1, Right click: pos2
+    - **Spawn Wand** - Right click to set spawn points
+
+    Use `/has editor` again to exit editor mode.
+  </Accordion>
+
+  <Accordion title="/has setspawn <type>" icon="location-dot">
+    **Description:** Set spawn point at your current location
+
+    **Usage:** `/has setspawn <type>`
+
+    **Permission:** `nhideandseek.admin`
+
+    **Arguments:**
+    - `<type>` - Spawn type: `lobby`, `hider`, `seeker`, `spectator`
+
+    **Examples:**
+    ```
+    /has setspawn lobby
+    /has setspawn hider
+    /has setspawn seeker
+    /has setspawn spectator
+    ```
+
+    **Spawn Types:**
+    - **lobby** - Where players wait before game starts
+    - **hider** - Random spawn for hiders (add multiple)
+    - **seeker** - Where seekers spawn (add multiple)
+    - **spectator** - Where spectators are teleported
+
+    **Notes:**
+    - Must be in editor mode
+    - Hider/Seeker spawns can be set multiple times
+    - Players spawn at random hider/seeker spawn points
+  </Accordion>
+
+  <Accordion title="/has settings <arena>" icon="gear">
+    **Description:** Open arena settings GUI
+
+    **Usage:** `/has settings <arena>`
+
+    **Permission:** `nhideandseek.admin`
+
+    **Arguments:**
+    - `<arena>` - Name of the arena to configure
+
+    **Examples:**
+    ```
+    /has settings lobby
+    /has settings forest
+    ```
+
+    **Configurable Settings:**
+    - Min/Max players
+    - Game duration
+    - Hiding time
+    - Seeker ratio
+    - Hider effects (speed, invisibility, scale)
+    - Seeker fireball settings
+    - Team balance options
+    - Priority seeker permissions
+  </Accordion>
+</AccordionGroup>
+
+---
+
+### Game Control
+
+<AccordionGroup>
+  <Accordion title="/has start" icon="play">
+    **Description:** Start the game you're currently in
+
+    **Usage:** `/has start`
+
+    **Permission:** `nhideandseek.admin`
+
+    **Example:**
+    ```
+    /has start
+    ```
+
+    **Requirements:**
+    - Must be in a game
+    - Game must be in waiting/countdown state
+    - Minimum player count must be met
+  </Accordion>
+
+  <Accordion title="/has stop" icon="stop">
+    **Description:** Stop the game you're currently in
+
+    **Usage:** `/has stop`
+
+    **Permission:** `nhideandseek.admin`
+
+    **Example:**
+    ```
+    /has stop
+    ```
+
+    **Notes:**
+    - Ends the game immediately
+    - No winner declared
+    - Players returned to lobby
+  </Accordion>
+
+  <Accordion title="/has forcestart <arena>" icon="forward">
+    **Description:** Force start a game regardless of player count
+
+    **Usage:** `/has forcestart <arena>`
+
+    **Permission:** `nhideandseek.admin`
+
+    **Arguments:**
+    - `<arena>` - Name of the arena
+
+    **Examples:**
+    ```
+    /has forcestart lobby
+    /has forcestart citymap
+    ```
+
+    **Notes:**
+    - Bypasses minimum player requirement
+    - Useful for testing
+    - Game may be unbalanced with few players
+  </Accordion>
+
+  <Accordion title="/has forcestop <arena>" icon="ban">
+    **Description:** Force stop a game from console or remotely
+
+    **Usage:** `/has forcestop <arena>`
+
+    **Permission:** `nhideandseek.admin`
+
+    **Arguments:**
+    - `<arena>` - Name of the arena
+
+    **Examples:**
+    ```
+    /has forcestop lobby
+    /has forcestop forest
+    ```
+
+    **Notes:**
+    - Can be used from console
+    - Stops game immediately
+    - Useful for emergency situations
+  </Accordion>
+
+  <Accordion title="/has setrole <player> <role>" icon="user-tag">
+    **Description:** Pre-assign a player's role in lobby
+
+    **Usage:** `/has setrole <player> <hider|seeker|auto>`
+
+    **Permission:** `nhideandseek.admin`
+
+    **Arguments:**
+    - `<player>` - Player name
+    - `<role>` - Role: `hider`, `seeker`, or `auto`
+
+    **Examples:**
+    ```
+    /has setrole Notch seeker
+    /has setrole Steve hider
+    /has setrole Alex auto
+    ```
+
+    **Notes:**
+    - Only works in lobby phase (before game starts)
+    - Player is notified of role assignment
+    - `auto` removes manual assignment
+    - Role is locked until game starts
+    - Useful for content creators or special events
+
+    <Tip>
+      Great for YouTube videos where you want specific players to be seekers!
+    </Tip>
+  </Accordion>
+
+  <Accordion title="/has settime <arena> <seconds>" icon="clock">
+    **Description:** Set game duration for an arena
+
+    **Usage:** `/has settime <arena> <seconds>`
+
+    **Permission:** `nhideandseek.admin`
+
+    **Arguments:**
+    - `<arena>` - Arena name
+    - `<seconds>` - Duration in seconds
+
+    **Examples:**
+    ```
+    /has settime lobby 300
+    /has settime forest 600
+    /has settime quick 180
+    ```
+
+    **Recommended Durations:**
+    - **3 minutes (180s)** - Quick games
+    - **5 minutes (300s)** - Standard games
+    - **10 minutes (600s)** - Long games
+  </Accordion>
+</AccordionGroup>
+
+---
+
+### Player Management
+
+<AccordionGroup>
+  <Accordion title="/has coins <player> <action> [amount]" icon="coins">
+    **Description:** Manage player coins
+
+    **Usage:** `/has coins <player> <add|set|remove|check> [amount]`
+
+    **Permission:** `nhideandseek.admin`
+
+    **Arguments:**
+    - `<player>` - Player name
+    - `<action>` - Action: `add`, `set`, `remove`, or `check`
+    - `[amount]` - Amount of coins (not needed for check)
+
+    **Examples:**
+    ```
+    /has coins Notch check
+    /has coins Steve add 100
+    /has coins Alex set 500
+    /has coins Player remove 50
+    ```
+
+    **Actions:**
+    - **check** - Display current coin balance
+    - **add** - Add coins to player's balance
+    - **set** - Set exact coin amount
+    - **remove** - Remove coins from balance
+
+    **Aliases:**
+    - `/has setcoins`
+    - `/has addcoins`
+  </Accordion>
+
+  <Accordion title="/has resetstats <player>" icon="rotate-left">
+    **Description:** Reset a player's statistics
+
+    **Usage:** `/has resetstats <player>`
+
+    **Permission:** `nhideandseek.admin`
+
+    **Arguments:**
+    - `<player>` - Player name (online or offline)
+
+    **Examples:**
+    ```
+    /has resetstats Notch
+    /has resetstats Steve123
+    ```
+
+    **What Gets Reset:**
+    - Games played & won
+    - Wins as Hider/Seeker
+    - Total kills & deaths
+    - K/D ratio
+    - Win rate
+    - **Coins** (set to 0)
+    - Time played
+
+    <Warning>
+      This action is permanent and cannot be undone!
+    </Warning>
+
+    **Note:** Action is logged for audit purposes.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+### System Commands
+
+<AccordionGroup>
+  <Accordion title="/has setmainlobby" icon="home">
+    **Description:** Set the main lobby location
+
+    **Usage:** `/has setmainlobby`
+
+    **Permission:** `nhideandseek.admin`
+
+    **Example:**
+    ```
+    /has setmainlobby
+    ```
+
+    **Notes:**
+    - Stand at desired lobby location
+    - Run the command
+    - Players will be teleported here when leaving games
+    - Includes exact coordinates and rotation
+    - Also sets in config.yml
+  </Accordion>
+
+  <Accordion title="/has reload" icon="arrows-rotate">
+    **Description:** Reload plugin configuration
+
+    **Usage:** `/has reload`
+
+    **Permission:** `nhideandseek.admin`
+
+    **Example:**
+    ```
+    /has reload
+    ```
+
+    **What Gets Reloaded:**
+    - Main configuration (config.yml)
+    - Language files
+    - Effects configuration
+    - Menu configurations
+    - Arena settings
+
+    **Notes:**
+    - Does not interrupt active games
+    - Players in games are not affected
+    - New settings apply to next game
+    - Database connection is not reloaded
+
+    <Tip>
+      Use this to apply configuration changes without restarting the server!
+    </Tip>
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Permissions
+
+Complete permission node reference for NHideAndSeek.
+
+### Permission Structure
+
+```yaml
+nhideandseek.*                    # All permissions
+nhideandseek.admin                # All admin commands
+nhideandseek.effect.*             # All effects unlocked
+nhideandseek.effect.<effectid>    # Specific effect access
+```
+
+---
+
+### Player Permissions
+
+| Permission | Description | Default |
+|------------|-------------|---------|
+| `nhideandseek.join` | Join games | `true` |
+| `nhideandseek.leave` | Leave games | `true` |
+| `nhideandseek.menu` | Open arena menu | `true` |
+| `nhideandseek.stats` | View statistics | `true` |
+| `nhideandseek.leaderboard` | View leaderboard | `true` |
+| `nhideandseek.effects` | Access effects shop | `true` |
+| `nhideandseek.chat` | Toggle chat modes | `true` |
+
+<Note>
+  Default permissions are granted to all players automatically.
+</Note>
+
+---
+
+### Admin Permissions
+
+| Permission | Description | Default |
+|------------|-------------|---------|
+| `nhideandseek.admin` | All admin commands | `op` |
+| `nhideandseek.create` | Create arenas | `op` |
+| `nhideandseek.delete` | Delete arenas | `op` |
+| `nhideandseek.editor` | Arena editor mode | `op` |
+| `nhideandseek.settings` | Modify arena settings | `op` |
+| `nhideandseek.forcestart` | Force start games | `op` |
+| `nhideandseek.forcestop` | Force stop games | `op` |
+| `nhideandseek.setrole` | Assign player roles | `op` |
+| `nhideandseek.coins` | Manage player coins | `op` |
+| `nhideandseek.resetstats` | Reset player stats | `op` |
+| `nhideandseek.reload` | Reload plugin | `op` |
+
+---
+
+### Effect Permissions
+
+Effect permissions allow VIP/Premium players to access exclusive cosmetic effects.
+
+| Permission | Description |
+|------------|-------------|
+| `nhideandseek.effect.*` | Access all effects (bypass shop) |
+| `nhideandseek.effect.fireworks` | Fireworks victory effect |
+| `nhideandseek.effect.hearts` | Hearts win effect |
+| `nhideandseek.effect.rainbow` | Rainbow circle effect |
+| `nhideandseek.effect.star` | Star celebration effect |
+| `nhideandseek.effect.blood` | Blood splash kill effect |
+| `nhideandseek.effect.fire` | Fire explosion effect |
+| `nhideandseek.effect.lightning` | Lightning strike effect |
+| `nhideandseek.effect.smoke` | Smoke cloud effect |
+| `nhideandseek.effect.soul` | Soul ascension death effect |
+| `nhideandseek.effect.angel` | Angel wings effect |
+| `nhideandseek.effect.ghost` | Ghost fade effect |
+| `nhideandseek.effect.explosion` | Explosive death effect |
+
+**How Effect Permissions Work:**
+
+1. **With Permission:** Effect is visible in shop but FREE (no coin cost)
+2. **Without Permission:** Effect requires purchase with coins
+3. **With `effect.*`:** All effects are free and unlocked
+
+**Example Configuration:**
+
+```yaml
+# In your permissions plugin (LuckPerms, etc.)
+groups:
+  vip:
+    permissions:
+      - nhideandseek.effect.fireworks
+      - nhideandseek.effect.rainbow
+      - nhideandseek.effect.lightning
+
+  premium:
+    permissions:
+      - nhideandseek.effect.*  # All effects free
+```
+
+---
+
+### Seeker Priority Permissions
+
+Configure VIP players to have higher chance of becoming seekers.
+
+**In arena settings:**
+```yaml
+settings:
+  teams:
+    seeker-priority:
+      enabled: true
+      permissions:
+        - "vip.premium"
+        - "rank.elite"
+      priority-weight: 3.0
+```
+
+**How It Works:**
+- Players with listed permissions have 3x higher chance to be seeker
+- Does not guarantee seeker role
+- Works with random assignment
+- Useful for giving VIPs preferred roles
+
+---
+
+<Tip>
+  For more help, check our Discord or GitHub repository!
+</Tip>

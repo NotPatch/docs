@@ -28,7 +28,9 @@
               "plugins/n-hide-and-seek/requirements",
               "plugins/n-hide-and-seek/features",
               "plugins/n-hide-and-seek/arena-setup",
-              "plugins/n-hide-and-seek/effects"
+              "plugins/n-hide-and-seek/effects",
+              "plugins/n-hide-and-seek/configuration",
+              "plugins/n-hide-and-seek/commands"
             ]
           },
           {
